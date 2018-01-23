@@ -1,0 +1,21 @@
+{
+    "name": "rocketweb/module-content-update",
+    "description": "Helper installation functions.",
+    "type": "magento2-module",
+    "version": "1.1.0",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Rocket Web Inc.",
+            "email": "info@rocketweb.com"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "registration.php"
+        ],
+        "psr-4": {
+            "RocketWeb\\ContentUpdate\\": ""
+        }
+    }
+}
