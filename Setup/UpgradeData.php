@@ -4,15 +4,15 @@
  *
  * NOTICE OF LICENSE
  *
- * This source file is subject to the Open Software License (OSL 3.0)
+ * This source file is subject to the GNU General Public License (GPL 3.0)
  * that is bundled with this package in the file LICENSE.txt.
  * It is also available through the world-wide-web at this URL:
- * http://opensource.org/licenses/osl-3.0.php
+ * https://www.gnu.org/licenses/gpl-3.0.en.html
  *
  * @category  RocketWeb
  * @package   RocketWeb_ContentUpdate
- * @copyright Copyright (c) 2016-2017 RocketWeb (http://rocketweb.com)
- * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @copyright Copyright (c) 2016-2019 RocketWeb (http://rocketweb.com)
+ * @license   https://www.gnu.org/licenses/gpl-3.0.en.html  GNU General Public License (GPL 3.0)
  * @author    Rocket Web Inc.
  */
 namespace RocketWeb\ContentUpdate\Setup;
@@ -58,50 +58,21 @@ class UpgradeData implements UpgradeDataInterface
         /** @var HelperSetup $helperSetup */
         $helperSetup = $this->helperSetupFactory->create(['setup' => $setup]);
 
-        if (version_compare($context->getVersion(), '1.0.1') < 0) {
-            //$this->createExamplePage($helperSetup);
-        }
-
-        if (version_compare($context->getVersion(), '1.0.2') < 0) {
-            //$this->updateExamplePage($helperSetup);
-        }
-
-        if (version_compare($context->getVersion(), '1.0.3') < 0) {
-            // Delete this example's CMS page
-            //$helperSetup->deleteCmsPage('other-test-page', $helperSetup->getStoreId('admin'));
-        }
-
-        if (version_compare($context->getVersion(), '1.0.4') < 0) {
-            //$this->createExampleBlock($helperSetup);
-        }
-
-        if (version_compare($context->getVersion(), '1.0.5') < 0) {
-            //$this->updateExampleBlock($helperSetup);
-        }
-
-        if (version_compare($context->getVersion(), '1.0.6') < 0) {
-            // Delete this example's CMS block
-            //$helperSetup->deleteCmsBlock('dolor-sit-amet-other', $helperSetup->getStoreId('admin'));
-        }
-
-        if (version_compare($context->getVersion(), '1.0.7') < 0) {
-            //$this->saveExampleConfiguration($helperSetup);
-        }
-
-        if (version_compare($context->getVersion(), '1.0.8') < 0) {
-            //$this->updateExampleConfiguration($helperSetup);
-        }
-
-        if (version_compare($context->getVersion(), '1.0.9') < 0) {
-            //$this->deleteExampleConfiguration($helperSetup);
-        }
-
-        if (version_compare($context->getVersion(), '1.0.10') < 0) {
-            //$this->createExampleWidget($helperSetup);
-        }
-
-        if (version_compare($context->getVersion(), '1.0.11') < 0) {
-            //$this->updateExampleEmailTemplate($helperSetup);
+        if (version_compare($context->getVersion(), '1.1.0') < 0) {
+            /** 
+             * Examples below, keep as reference or remove 
+             * */
+            // $this->createNewCmsPage($helperSetup);
+            // $this->updateExistingCmsPage($helperSetup);
+            // $this->createNewCmsBlock($helperSetup);
+            // $this->updateExistingCmsBlock($helperSetup);
+            // $this->createConfiguration($helperSetup);
+            // $this->updateConfiguration($helperSetup);
+            // $this->deleteConfiguration($helperSetup);
+            // $this->createNewWidget($helperSetup);
+            // $this->updateEmailTemplate($helperSetup);
+            // $this->deleteExistingCmsBlock($helperSetup);
+            // $this->deleteExistingCmsBlock($helperSetup);
         }
 
         $setup->endSetup();
@@ -112,7 +83,7 @@ class UpgradeData implements UpgradeDataInterface
      *
      * @param HelperSetup $helperSetup
      */
-    public function createExamplePage($helperSetup)
+    public function createNewCmsPage($helperSetup)
     {
         $storeId = $helperSetup->getStoreId('admin');
         $stores = [$storeId]; // Or $stores = = [$storeId, .. ]; to assign the page to more than one store
@@ -130,12 +101,12 @@ EOD;
 EOD;
 
         $data = [
-            'title'             => 'Test Page',
+            'title'             => 'Lorem Ipsum',
             'page_layout'       => '1column',
             'meta_title'        => '',
             'meta_keywords'     => '',
             'meta_description'  => '',
-            //'identifier'      => 'other-page', // Only to update old identifier if we want to
+            //'identifier'      => 'other-lorem-ipsum', // Only to update old identifier if we want to
             'content_heading'   => '',
             'content'           => $content,
             'is_active'         => Page::STATUS_ENABLED,
@@ -143,25 +114,37 @@ EOD;
             'layout_update_xml' => $layoutUpdateXml
         ];
 
-        $helperSetup->createCmsPage('test-page', $data, $stores);
+        $helperSetup->createCmsPage('lorem-ipsum', $data, $stores);
     }
 
     /**
-     * Update something in Lorem Ipsum CMS page
+     * Update existing CMS page
      *
      * @param HelperSetup $helperSetup
      */
-    public function updateExamplePage($helperSetup)
+    public function updateExistingCmsPage($helperSetup)
     {
         $storeId = $helperSetup->getStoreId('admin');
 
         $data = [
-            'title'             => 'Test Page Changed Title',
-            'identifier'        => 'other-test-page', // This time we change identifier
+            'title'             => 'Lorem Ipsum Changed Title',
+            'identifier'        => 'other-lorem-ipsum', // This time we change identifier
             'layout_update_xml' => '',
         ];
 
-        $helperSetup->updateCmsPage('test-page', $data, $storeId);
+        $helperSetup->updateCmsPage('lorem-ipsum', $data, $storeId);
+    }
+
+    /**
+     * Delete existing CMS page
+     *
+     * @param HelperSetup $helperSetup
+     */
+    public function deleteExistingCmsPage($helperSetup)
+    {
+        $storeId = $helperSetup->getStoreId('admin');
+
+        $helperSetup->deleteCmsPage('other-lorem-ipsum', $storeId);
     }
 
     /**
@@ -169,7 +152,7 @@ EOD;
      *
      * @param HelperSetup $helperSetup
      */
-    public function createExampleBlock($helperSetup)
+    public function createNewCmsBlock($helperSetup)
     {
         $storeId = $helperSetup->getStoreId('admin');
         $stores = [$storeId]; // Or $stores = = [$storeId, .. ]; to assign the block to more than one store
@@ -179,47 +162,59 @@ EOD;
 EOD;
 
         $data = [
-            'title'        => 'Test Block',
+            'title'        => 'Lorem Ipsum',
             'content'      => $content,
             'is_active'    => Block::STATUS_ENABLED
         ];
 
-        $helperSetup->createCmsBlock('test-block', $data, $stores);
+        $helperSetup->createCmsBlock('dolor-sit-amet', $data, $stores);
     }
 
     /**
-     * Update something in Test Block CMS Block
+     * Delete existing CMS block
      *
      * @param HelperSetup $helperSetup
      */
-    public function updateExampleBlock($helperSetup)
+    public function deleteExistingCmsBlock($helperSetup)
+    {
+        $storeId = $helperSetup->getStoreId('admin');
+
+        $helperSetup->deleteCmsBlock('dolor-sit-amet-other', $storeId);
+    }
+
+    /**
+     * Update existing CMS Block
+     *
+     * @param HelperSetup $helperSetup
+     */
+    public function updateExistingCmsBlock($helperSetup)
     {
         $storeId = $helperSetup->getStoreId('admin');
 
         $data = [
             'is_active'  => Block::STATUS_DISABLED,
-            'identifier' => 'other-test-block', // This time we change identifier
+            'identifier' => 'dolor-sit-amet-other', // This time we change identifier
         ];
 
-        $helperSetup->updateCmsBlock('test-block', $data, $storeId);
+        $helperSetup->updateCmsBlock('dolor-sit-amet', $data, $storeId);
     }
 
     /**
-     * Create 3 configurations
+     * Create new configurations
      *
      * @param HelperSetup $helperSetup
      */
-    public function saveExampleConfiguration($helperSetup)
+    public function createConfiguration($helperSetup)
     {
         // Set value to default Scope, to admin store implicitly
         $helperSetup->saveConfigValue(
-            'rw_test/general/hello_world',
+            'rw_lorem_ipsum/general/hello_world',
             'Hello!'
         );
 
         // Set value to Scope 'store', to store with id 1
         $helperSetup->saveConfigValue(
-            'rw_test/general/hello_usa',
+            'rw_lorem_ipsum/general/hello_usa',
             'Hi!',
             ScopeInterface::SCOPE_STORE,
             Store::DISTRO_STORE_ID
@@ -232,7 +227,7 @@ EOD;
         if ($websiteId) {
             // Set value to Scope 'website', to website with id $websiteId
             $helperSetup->saveConfigValue(
-                'rw_test/general/we_said_hello',
+                'rw_lorem_ipsum/general/we_said_hello',
                 '1',
                 ScopeInterface::SCOPE_WEBSITES,
                 $websiteId
@@ -241,11 +236,11 @@ EOD;
     }
 
     /**
-     * Do more with configuration
+     * Update existing configuration
      *
      * @param HelperSetup $helperSetup
      */
-    public function updateExampleConfiguration($helperSetup)
+    public function updateConfiguration($helperSetup)
     {
         // Get value to Scope 'store', to store with id 1
         $usa = $helperSetup->getConfigValue(
@@ -281,11 +276,11 @@ EOD;
     }
 
     /**
-     * Delete example's configurations
+     * Delete existing configuration
      *
      * @param HelperSetup $helperSetup
      */
-    public function deleteExampleConfiguration($helperSetup)
+    public function deleteConfiguration($helperSetup)
     {
         // Delete value of implicitly default Scope, of implicitly admin store
         $helperSetup->deleteConfigValue('rw_lorem_ipsum/general/hello_world');
@@ -309,11 +304,11 @@ EOD;
     }
 
     /**
-     * Example function to create a widget
+     * Create a widget
      *
      * @param HelperSetup $helperSetup
      */
-    public function createExampleWidget($helperSetup)
+    public function createNewWidget($helperSetup)
     {
         // This is an example function
         return;
@@ -322,11 +317,11 @@ EOD;
 <div>Lorem Ipsum</div>
 EOD;
         $data = [
-            'title'        => 'Test Widget',
+            'title'        => 'Lorem Ipsum',
             'content'      => $content,
             'is_active'    => Block::STATUS_ENABLED
         ];
-        $helperSetup->updateCmsBlock('test-block', $data, $helperSetup->getStoreId('admin'));
+        $helperSetup->updateCmsBlock('lorem_ipsum', $data, $helperSetup->getStoreId('admin'));
 
         $params = [
             'title'         => 'A brand new widget',
@@ -341,7 +336,7 @@ EOD;
                 'entities'      => 999999 // Some product id
             ],
             'widget' => [
-                'block_id' => 'test-block'
+                'block_id' => 'lorem_ipsum'
             ]
         ];
 
@@ -352,11 +347,11 @@ EOD;
     }
 
     /**
-     * Example function to update transactional email template
+     * Update transactional email template
      *
      * @param HelperSetup $helperSetup
      */
-    public function updateExampleEmailTemplate($helperSetup)
+    public function updateEmailTemplate($helperSetup)
     {
         // This is an example function
         return;
