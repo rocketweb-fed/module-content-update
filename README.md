@@ -1,5 +1,5 @@
 # RocketWeb_ContentUpdate
-Set default payment method, Google Search Address in shipping address.
+Module takes care of creating and updating static content using data scripts.
 
 ## Installation
 Install using Composer
